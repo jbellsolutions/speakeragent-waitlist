@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to the Founding Circle - Speaker Agent AI</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    .referral-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-gold);
+      border-radius: 10px;
+      padding: 24px;
+      margin: 28px 0;
+      text-align: left;
+    }
+    .referral-box .referral-label {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      margin-bottom: 12px;
+    }
+    .referral-link-row {
+      display: flex;
+      gap: 0;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+    }
+    .referral-link-row input {
+      flex: 1;
+      padding: 12px 14px;
+      font-size: 14px;
+      font-family: var(--font-main);
+      background: var(--bg-input);
+      border: none;
+      color: var(--text-secondary);
+      outline: none;
+      min-width: 0;
+    }
+    .referral-link-row button {
+      padding: 12px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: var(--font-main);
+      background: var(--accent-gold);
+      color: var(--bg-primary);
+      border: none;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+    .referral-link-row button:hover {
+      background: var(--accent-gold-hover);
+    }
+    .referral-note {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-top: 12px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <div class="thanks-page">
+      <div class="thanks-content">
+        <div class="checkmark">&#10003;</div>
+        <h1>Welcome to the Founding Circle.</h1>
+        <p>Tony will personally reach out within 48 hours to get you started.</p>
+
+        <div class="referral-box">
+          <div class="referral-label">Your Personal Referral Link</div>
+          <div class="referral-link-row">
+            <input type="text" id="referral-link" readonly value="Generating...">
+            <button type="button" id="copy-btn" onclick="copyReferralLink()">Copy</button>
+          </div>
+          <p class="referral-note">Share this link with 3 people who'd benefit. When they sign up, you both get credit.</p>
+        </div>
+
+        <p style="color: var(--text-muted); font-size: 15px; margin-top: 32px;">Follow Tony on LinkedIn for the backstory on what we're building and why.</p>
+        <a href="https://www.linkedin.com/in/tonydagostino1/" target="_blank" rel="noopener noreferrer" class="cta-link">Follow Tony on LinkedIn</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Read ref code from URL and display referral link
+    (function() {
+      const params = new URLSearchParams(window.location.search);
+      const refCode = params.get('ref');
+      const linkInput = document.getElementById('referral-link');
+
+      if (refCode) {
+        const referralUrl = 'https://speakeragent-waitlist-production.up.railway.app/?ref=' + encodeURIComponent(refCode);
+        linkInput.value = referralUrl;
+      } else {
+        linkInput.value = 'Referral link unavailable. Contact tony@speakeragentai.com';
+      }
+    })();
+
+    function copyReferralLink() {
+      const linkInput = document.getElementById('referral-link');
+      const btn = document.getElementById('copy-btn');
+
+      navigator.clipboard.writeText(linkInput.value).then(function() {
+        btn.textContent = 'Copied!';
+        setTimeout(function() {
+          btn.textContent = 'Copy';
+        }, 2000);
+      }).catch(function() {
+        // Fallback for older browsers
+        linkInput.select();
+        document.execCommand('copy');
+        btn.textContent = 'Copied!';
+        setTimeout(function() {
+          btn.textContent = 'Copy';
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>

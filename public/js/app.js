@@ -47,31 +47,62 @@
       });
   }
 
+  // ---- Get referral code from URL ----
+  function getRefCode() {
+    var params = new URLSearchParams(window.location.search);
+    return params.get('ref') || '';
+  }
+
+  // ---- Show referral banner if referred ----
+  function initReferralBanner() {
+    var refCode = getRefCode();
+    if (!refCode) return;
+
+    // Only show on the main waitlist page
+    var heroForm = document.getElementById('hero-form');
+    if (!heroForm) return;
+
+    var banner = document.createElement('div');
+    banner.style.cssText = 'text-align:center;padding:12px 20px;font-size:14px;color:var(--accent-gold);letter-spacing:0.04em;border-bottom:1px solid var(--border-gold);background:rgba(201,168,76,0.06);';
+    banner.textContent = 'You were referred by a Founding Member';
+
+    var pageWrapper = document.querySelector('.page-wrapper');
+    if (pageWrapper) {
+      pageWrapper.insertBefore(banner, pageWrapper.firstChild);
+    }
+  }
+
   // ---- Waitlist Form Submission ----
   function initWaitlistForms() {
-    const forms = document.querySelectorAll('#hero-form, #footer-form');
+    var forms = document.querySelectorAll('#hero-form, #footer-form');
+    var refCode = getRefCode();
 
     forms.forEach((form) => {
       form.addEventListener('submit', function (e) {
         e.preventDefault();
 
-        const emailInput = form.querySelector('input[type="email"]');
-        const email = emailInput.value.trim();
-        const btn = form.querySelector('button');
-        const msgId = form.id === 'hero-form' ? 'hero-form-message' : 'footer-form-message';
-        const msgEl = document.getElementById(msgId);
+        var emailInput = form.querySelector('input[type="email"]');
+        var email = emailInput.value.trim();
+        var btn = form.querySelector('button');
+        var msgId = form.id === 'hero-form' ? 'hero-form-message' : 'footer-form-message';
+        var msgEl = document.getElementById(msgId);
 
         if (!email) return;
 
         // Set loading state
         btn.classList.add('btn-loading');
-        const originalText = btn.textContent;
+        var originalText = btn.textContent;
         btn.textContent = 'Joining...';
+
+        var payload = { email: email };
+        if (refCode) {
+          payload.ref = refCode;
+        }
 
         fetch('/api/waitlist', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email }),
+          body: JSON.stringify(payload),
         })
           .then((res) => res.json())
           .then((data) => {
@@ -149,6 +180,61 @@
     });
   }
 
+  // ---- Alpha Form Submission ----
+  function initAlphaForm() {
+    var form = document.getElementById('alpha-form');
+    if (!form) return;
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      var formData = new FormData(form);
+      var data = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        linkedin: formData.get('linkedin'),
+        topic: formData.get('topic'),
+        relationship: formData.get('relationship'),
+      };
+
+      var btn = form.querySelector('button[type="submit"]');
+      var msgEl = document.getElementById('alpha-form-message');
+
+      // Validate required fields
+      if (!data.name || !data.email || !data.topic || !data.relationship) {
+        showMessage(msgEl, 'Please fill in all required fields.', 'error');
+        return;
+      }
+
+      // Set loading state
+      btn.classList.add('btn-loading');
+      var originalText = btn.textContent;
+      btn.textContent = 'Accepting...';
+
+      fetch('/api/alpha-accept', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
+        .then(function (res) { return res.json(); })
+        .then(function (result) {
+          if (result.error) {
+            showMessage(msgEl, result.error, 'error');
+            btn.classList.remove('btn-loading');
+            btn.textContent = originalText;
+          } else if (result.success && result.ref_code) {
+            // Success - redirect to alpha thank you with ref code
+            window.location.href = '/alpha-thanks?ref=' + encodeURIComponent(result.ref_code);
+          }
+        })
+        .catch(function () {
+          showMessage(msgEl, 'Something went wrong. Please try again.', 'error');
+          btn.classList.remove('btn-loading');
+          btn.textContent = originalText;
+        });
+    });
+  }
+
   // ---- Show Form Message ----
   function showMessage(el, text, type) {
     if (!el) return;
@@ -168,5 +254,7 @@
     loadStats();
     initWaitlistForms();
     initBetaForm();
+    initAlphaForm();
+    initReferralBanner();
   });
 })();
