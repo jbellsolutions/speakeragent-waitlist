@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Set Up Your Account — Speaker Agent AI</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    .onboard-wrap {
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Step indicator */
+    .step-indicator {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-bottom: 48px;
+    }
+    .step-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 2px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.3s;
+    }
+    .step-dot.active {
+      border-color: var(--accent-gold);
+      color: var(--accent-gold);
+    }
+    .step-dot.done {
+      background: var(--accent-gold);
+      border-color: var(--accent-gold);
+      color: #0A0A0F;
+    }
+    .step-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border-subtle);
+      transition: background 0.3s;
+    }
+    .step-line.done { background: var(--accent-gold); }
+    .step-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 6px;
+    }
+    .step-label.active { color: var(--accent-gold); }
+    .steps-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 0;
+      margin-bottom: 48px;
+    }
+    .step-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .step-col .step-line-h {
+      width: 60px;
+      height: 1px;
+      background: var(--border-subtle);
+      margin-top: 14px;
+      transition: background 0.3s;
+    }
+    .step-col .step-line-h.done { background: var(--accent-gold); }
+
+    /* Card */
+    .onboard-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 40px;
+    }
+    .onboard-card h2 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .onboard-card .card-sub {
+      font-size: 15px;
+      color: var(--text-secondary);
+      margin-bottom: 32px;
+      line-height: 1.55;
+    }
+
+    /* Step panels */
+    .step-panel { display: none; }
+    .step-panel.active { display: block; }
+
+    /* Pill select */
+    .pill-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .pill {
+      padding: 8px 16px;
+      border-radius: 100px;
+      border: 1px solid var(--border-subtle);
+      font-size: 13px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s;
+      user-select: none;
+    }
+    .pill:hover { border-color: var(--accent-gold); color: var(--text-primary); }
+    .pill.selected {
+      background: var(--accent-gold-dim);
+      border-color: var(--accent-gold);
+      color: var(--accent-gold);
+    }
+
+    /* Success state */
+    .success-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--accent-gold-dim);
+      border: 2px solid var(--border-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin: 0 auto 24px;
+    }
+    .referral-box {
+      background: var(--bg-input);
+      border: 1px solid var(--border-gold);
+      border-radius: 8px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 20px 0 28px;
+    }
+    .referral-url {
+      font-size: 14px;
+      color: var(--accent-gold);
+      word-break: break-all;
+      flex: 1;
+    }
+    .copy-btn {
+      background: var(--accent-gold-dim);
+      border: 1px solid var(--border-gold);
+      color: var(--accent-gold);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+    .copy-btn:hover { background: rgba(201,168,76,0.25); }
+
+    .next-steps-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 8px;
+    }
+    .next-steps-list li {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .ns-num {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 1px solid var(--border-gold);
+      color: var(--accent-gold);
+      font-size: 11px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .ns-text { font-size: 14px; color: var(--text-secondary); line-height: 1.55; }
+    .ns-text strong { color: var(--text-primary); font-weight: 500; }
+
+    @media (max-width: 560px) {
+      .onboard-card { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+
+    <header class="topbar">
+      <div class="container">
+        <div class="logo">Speaker Agent <span>AI</span></div>
+        <div class="topbar-tag">Founding Member Setup</div>
+      </div>
+    </header>
+
+    <section style="padding: 60px 0 100px;">
+      <div class="onboard-wrap">
+
+        <!-- Step indicators -->
+        <div style="display:flex; align-items:center; gap:0; margin-bottom: 48px;" class="fade-in">
+          <div style="display:flex;flex-direction:column;align-items:center;">
+            <div class="step-dot active" id="dot-1">1</div>
+            <div style="font-size:11px;color:var(--accent-gold);margin-top:5px;white-space:nowrap;">About You</div>
+          </div>
+          <div style="flex:1;height:1px;background:var(--border-subtle);margin-bottom:18px;" id="line-1"></div>
+          <div style="display:flex;flex-direction:column;align-items:center;">
+            <div class="step-dot" id="dot-2">2</div>
+            <div style="font-size:11px;color:var(--text-muted);margin-top:5px;white-space:nowrap;" id="label-2">Your Work</div>
+          </div>
+          <div style="flex:1;height:1px;background:var(--border-subtle);margin-bottom:18px;" id="line-2"></div>
+          <div style="display:flex;flex-direction:column;align-items:center;">
+            <div class="step-dot" id="dot-3">3</div>
+            <div style="font-size:11px;color:var(--text-muted);margin-top:5px;white-space:nowrap;" id="label-3">You're In</div>
+          </div>
+        </div>
+
+        <div class="onboard-card fade-in">
+
+          <!-- STEP 1: Basic info -->
+          <div class="step-panel active" id="step-1">
+            <h2>Let's get you set up.</h2>
+            <p class="card-sub">Takes 2 minutes. This is how your AI agent learns who you are.</p>
+
+            <form id="step1-form">
+              <div class="form-group">
+                <label>Full Name <span class="required">*</span></label>
+                <input type="text" id="s1-name" placeholder="Your full name" required>
+              </div>
+              <div class="form-group">
+                <label>Email <span class="required">*</span></label>
+                <input type="email" id="s1-email" placeholder="your@email.com" required autocomplete="email">
+              </div>
+              <div class="form-group">
+                <label>LinkedIn Profile</label>
+                <input type="url" id="s1-linkedin" placeholder="https://linkedin.com/in/yourprofile">
+              </div>
+              <div class="form-group">
+                <label>How do you know Tony? <span class="required">*</span></label>
+                <select id="s1-relationship" required>
+                  <option value="" disabled selected>Select one</option>
+                  <option value="navy">Navy / Military</option>
+                  <option value="wall-street">Wall Street / Finance</option>
+                  <option value="healthcare">Healthcare / Medicine</option>
+                  <option value="wells-fargo">Wells Fargo / Enterprise</option>
+                  <option value="sipc">SIPC / Government / Policy</option>
+                  <option value="colleague">Colleague / Business</option>
+                  <option value="fellow-speaker">Fellow Speaker / Author</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <button type="submit" class="btn-primary btn-primary--large" style="width:100%;">Continue →</button>
+            </form>
+          </div>
+
+          <!-- STEP 2: Expertise -->
+          <div class="step-panel" id="step-2">
+            <h2>Tell us about your work.</h2>
+            <p class="card-sub">Your AI agent uses this to find opportunities that actually fit your credentials.</p>
+
+            <form id="step2-form">
+              <div class="form-group">
+                <label>Primary Speaking Topic <span class="required">*</span></label>
+                <input type="text" id="s2-topic" placeholder="e.g., AI strategy, Healthcare leadership, Crisis management" required>
+              </div>
+
+              <div class="form-group">
+                <label>Your speaking fee range</label>
+                <select id="s2-fee">
+                  <option value="">Not sure yet</option>
+                  <option value="under-2500">Under $2,500</option>
+                  <option value="2500-7500">$2,500 – $7,500</option>
+                  <option value="7500-15000">$7,500 – $15,000</option>
+                  <option value="15000-25000">$15,000 – $25,000</option>
+                  <option value="25000-plus">$25,000+</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>What kinds of stages are you targeting?</label>
+                <div class="pill-group" id="stage-pills">
+                  <div class="pill" data-val="conferences">Conferences</div>
+                  <div class="pill" data-val="corporate">Corporate Events</div>
+                  <div class="pill" data-val="associations">Associations</div>
+                  <div class="pill" data-val="medical">Medical / Clinical</div>
+                  <div class="pill" data-val="government">Government</div>
+                  <div class="pill" data-val="universities">Universities</div>
+                  <div class="pill" data-val="podcasts">Podcasts</div>
+                  <div class="pill" data-val="panels">Panels</div>
+                </div>
+              </div>
+
+              <div class="form-group" style="margin-top:24px;">
+                <label>Do you have a book, articles, or talks we should know about?</label>
+                <textarea id="s2-work" placeholder="e.g., Published 'The Operator's Edge' (2023). Regular contributor to Harvard Business Review. TEDx talk on AI governance with 80K views." rows="3" style="width:100%;background:var(--bg-input);border:1px solid var(--border-subtle);border-radius:8px;padding:14px 16px;color:var(--text-primary);font-family:var(--font-main);font-size:15px;resize:vertical;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='var(--accent-gold)'" onblur="this.style.borderColor='var(--border-subtle)'"></textarea>
+              </div>
+
+              <div class="form-message" id="step2-message"></div>
+              <button type="submit" class="btn-primary btn-primary--large" style="width:100%;">Finish Setup →</button>
+            </form>
+          </div>
+
+          <!-- STEP 3: Success -->
+          <div class="step-panel" id="step-3">
+            <div style="text-align:center;">
+              <div class="success-icon">✓</div>
+              <h2 style="margin-bottom:8px;">You're in the founding circle.</h2>
+              <p style="font-size:15px;color:var(--text-secondary);margin-bottom:8px;">Welcome, <strong id="welcome-name" style="color:var(--text-primary);"></strong>. Tony will personally reach out within 48 hours to get your AI agent running.</p>
+            </div>
+
+            <div style="margin: 28px 0 8px;">
+              <div style="font-size:13px;color:var(--text-muted);margin-bottom:8px;">Your personal referral link — share it with people who should be in here:</div>
+              <div class="referral-box">
+                <div class="referral-url" id="referral-display">Loading...</div>
+                <button class="copy-btn" id="copy-ref-btn" onclick="copyRef()">Copy</button>
+              </div>
+            </div>
+
+            <ul class="next-steps-list">
+              <li>
+                <div class="ns-num">1</div>
+                <div class="ns-text"><strong>Check your email.</strong> We've sent a confirmation with everything you need to know before Tony reaches out.</div>
+              </li>
+              <li>
+                <div class="ns-num">2</div>
+                <div class="ns-text"><strong>Share your referral link.</strong> Every person you refer comes in through your name. Bring people who deserve to be here.</div>
+              </li>
+              <li>
+                <div class="ns-num">3</div>
+                <div class="ns-text"><strong>Stay tuned.</strong> Tony will walk you through setting up your AI agent profile personally — not a video, not a form, a real conversation.</div>
+              </li>
+            </ul>
+
+            <div style="margin-top:32px;padding-top:24px;border-top:1px solid var(--border-subtle);text-align:center;">
+              <a href="https://www.linkedin.com/in/tonydagostino" target="_blank" rel="noopener" style="font-size:14px;color:var(--text-muted);">Follow Tony on LinkedIn →</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-left">Built by operators, not a lab.</div>
+        <div class="footer-links">
+          <a href="mailto:tony@speakeragentai.com">Contact Tony</a>
+          <a href="/alpha">Back to Invitation</a>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="/js/app.js"></script>
+  <script>
+    let alphaData = {};
+    let refCode = '';
+
+    // Step 1 submit
+    document.getElementById('step1-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('s1-name').value.trim();
+      const email = document.getElementById('s1-email').value.trim();
+      const linkedin = document.getElementById('s1-linkedin').value.trim();
+      const relationship = document.getElementById('s1-relationship').value;
+
+      if (!name || !email || !relationship) return;
+
+      alphaData = { name, email, linkedin, relationship };
+      goToStep(2);
+    });
+
+    // Pill toggle
+    document.querySelectorAll('#stage-pills .pill').forEach(pill => {
+      pill.addEventListener('click', () => pill.classList.toggle('selected'));
+    });
+
+    // Step 2 submit
+    document.getElementById('step2-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = this.querySelector('button[type=submit]');
+      btn.textContent = 'Setting up your account...';
+      btn.disabled = true;
+
+      const stages = [...document.querySelectorAll('#stage-pills .pill.selected')].map(p => p.dataset.val);
+      const payload = {
+        ...alphaData,
+        topic: document.getElementById('s2-topic').value.trim(),
+        fee_range: document.getElementById('s2-fee').value,
+        target_stages: stages,
+        published_work: document.getElementById('s2-work').value.trim()
+      };
+
+      try {
+        const res = await fetch('/api/alpha-accept', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          refCode = data.ref_code;
+          const refUrl = window.location.origin + '/?ref=' + refCode;
+          document.getElementById('referral-display').textContent = refUrl;
+          document.getElementById('welcome-name').textContent = alphaData.name.split(' ')[0];
+          goToStep(3);
+        } else {
+          document.getElementById('step2-message').textContent = data.message || 'Something went wrong. Email tony@speakeragentai.com directly.';
+          document.getElementById('step2-message').style.color = 'var(--error)';
+          btn.textContent = 'Finish Setup →';
+          btn.disabled = false;
+        }
+      } catch (err) {
+        document.getElementById('step2-message').textContent = 'Connection error. Please try again.';
+        document.getElementById('step2-message').style.color = 'var(--error)';
+        btn.textContent = 'Finish Setup →';
+        btn.disabled = false;
+      }
+    });
+
+    function goToStep(n) {
+      document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
+      document.getElementById('step-' + n).classList.add('active');
+
+      // Update dots
+      for (let i = 1; i <= 3; i++) {
+        const dot = document.getElementById('dot-' + i);
+        const label = document.getElementById('label-' + i);
+        if (i < n) {
+          dot.classList.add('done');
+          dot.classList.remove('active');
+          dot.textContent = '✓';
+          if (label) label.style.color = 'var(--accent-gold)';
+        } else if (i === n) {
+          dot.classList.add('active');
+          dot.classList.remove('done');
+          if (label) label.style.color = 'var(--accent-gold)';
+        } else {
+          dot.classList.remove('active', 'done');
+          if (label) label.style.color = 'var(--text-muted)';
+        }
+      }
+      // Update lines
+      for (let i = 1; i <= 2; i++) {
+        const line = document.getElementById('line-' + i);
+        if (line) line.style.background = i < n ? 'var(--accent-gold)' : 'var(--border-subtle)';
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function copyRef() {
+      const url = window.location.origin + '/?ref=' + refCode;
+      navigator.clipboard.writeText(url).then(() => {
+        const btn = document.getElementById('copy-ref-btn');
+        btn.textContent = 'Copied!';
+        setTimeout(() => btn.textContent = 'Copy', 2000);
+      });
+    }
+  </script>
+</body>
+</html>

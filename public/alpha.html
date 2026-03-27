@@ -10,80 +10,102 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
   <style>
-    /* Alpha page overrides */
-    .alpha-letter {
-      padding: 80px 0 60px;
-    }
-
-    .alpha-letter .letter-from {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 48px;
-    }
-
-    .tony-avatar {
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      background: var(--accent-gold-dim);
-      border: 2px solid var(--border-gold);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--accent-gold);
-      flex-shrink: 0;
-      letter-spacing: -0.5px;
-    }
-
-    .tony-meta {
-      line-height: 1.4;
-    }
-
-    .tony-name {
-      font-weight: 600;
-      font-size: 15px;
-      color: var(--text-primary);
-    }
-
-    .tony-title {
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-
     .letter-body {
       font-family: 'Lora', Georgia, serif;
       font-size: 18px;
       line-height: 1.85;
       color: #C8C8D8;
     }
+    .letter-body p { margin-bottom: 28px; }
+    .letter-body p:last-child { margin-bottom: 0; }
+    .letter-body strong { color: var(--text-primary); font-weight: 500; }
+    .letter-body em { color: var(--accent-gold); font-style: italic; }
 
-    .letter-body p {
-      margin-bottom: 28px;
+    .tony-byline {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
     }
-
-    .letter-body p:last-child {
-      margin-bottom: 0;
-    }
-
-    .letter-body strong {
-      color: var(--text-primary);
-      font-weight: 500;
-    }
-
-    .letter-body em {
+    .tony-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--accent-gold-dim);
+      border: 2px solid var(--border-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: 700;
       color: var(--accent-gold);
-      font-style: italic;
+      flex-shrink: 0;
     }
+    .tony-meta { line-height: 1.4; }
+    .tony-name { font-weight: 600; font-size: 14px; color: var(--text-primary); }
+    .tony-title { font-size: 12px; color: var(--text-muted); }
 
-    .letter-signature {
-      margin-top: 48px;
-      padding-top: 32px;
+    .chapter-strip {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin: 40px 0;
+    }
+    .chapter-strip-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      margin-bottom: 16px;
+    }
+    .chapter-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .chapter-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .chapter-item:first-child { padding-top: 0; }
+    .chapter-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent-gold);
+      margin-top: 8px;
+      flex-shrink: 0;
+      opacity: 0.5;
+    }
+    .chapter-dot.active { opacity: 1; box-shadow: 0 0 8px var(--accent-gold-glow); }
+    .chapter-text { font-size: 14px; color: var(--text-secondary); line-height: 1.5; }
+    .chapter-text strong { color: var(--text-primary); font-weight: 500; }
+
+    .proof-quote {
+      background: var(--accent-gold-dim);
+      border: 1px solid var(--border-gold);
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin: 40px 0;
+    }
+    .proof-quote-text {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--text-primary);
+      font-style: italic;
+      margin-bottom: 20px;
+    }
+    .proof-stats { display: flex; gap: 32px; flex-wrap: wrap; }
+    .proof-stat .number { font-size: 24px; font-weight: 700; color: var(--accent-gold); line-height: 1; margin-bottom: 4px; }
+    .proof-stat .label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+
+    .signature-block {
+      margin-top: 40px;
+      padding-top: 28px;
       border-top: 1px solid var(--border-subtle);
     }
-
     .signature-name {
       font-family: 'Lora', Georgia, serif;
       font-size: 22px;
@@ -91,281 +113,66 @@
       color: var(--text-primary);
       margin-bottom: 6px;
     }
+    .signature-title { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
 
-    .signature-title {
-      font-size: 13px;
-      color: var(--text-muted);
-      line-height: 1.6;
-    }
-
-    /* Chapter timeline */
-    .chapter-strip {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      padding: 32px;
-      margin: 48px 0;
-    }
-
-    .chapter-strip-label {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--accent-gold);
-      margin-bottom: 20px;
-    }
-
-    .chapters {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
-
-    .chapter-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 16px;
-      padding: 14px 0;
-      border-bottom: 1px solid var(--border-subtle);
-    }
-
-    .chapter-item:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-
-    .chapter-item:first-child {
-      padding-top: 0;
-    }
-
-    .chapter-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--accent-gold);
-      margin-top: 8px;
-      flex-shrink: 0;
-      opacity: 0.6;
-    }
-
-    .chapter-dot.active {
-      opacity: 1;
-      box-shadow: 0 0 8px var(--accent-gold-glow);
-    }
-
-    .chapter-text {
-      font-size: 15px;
-      color: var(--text-secondary);
-      line-height: 1.5;
-    }
-
-    .chapter-text strong {
-      color: var(--text-primary);
-      font-weight: 500;
-    }
-
-    /* What you're joining */
-    .tribe-section {
-      padding: 60px 0;
-    }
-
-    .tribe-cards {
+    .benefits-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-top: 36px;
+      gap: 14px;
+      margin-top: 32px;
     }
-
-    @media (max-width: 600px) {
-      .tribe-cards {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .tribe-card {
+    @media (max-width: 560px) { .benefits-grid { grid-template-columns: 1fr; } }
+    .benefit-card {
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       border-radius: 10px;
-      padding: 24px;
+      padding: 20px;
     }
+    .benefit-card h4 { font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px; }
+    .benefit-card p { font-size: 13px; color: var(--text-secondary); line-height: 1.55; }
 
-    .tribe-card-icon {
-      font-size: 24px;
-      margin-bottom: 12px;
-    }
-
-    .tribe-card h4 {
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 8px;
-    }
-
-    .tribe-card p {
-      font-size: 14px;
-      color: var(--text-secondary);
-      line-height: 1.6;
-    }
-
-    /* Proof quote */
-    .proof-quote {
-      background: var(--accent-gold-dim);
-      border: 1px solid var(--border-gold);
-      border-radius: 12px;
-      padding: 32px;
-      margin: 48px 0;
-    }
-
-    .proof-quote-text {
-      font-family: 'Lora', Georgia, serif;
-      font-size: 17px;
-      line-height: 1.7;
-      color: var(--text-primary);
-      font-style: italic;
-      margin-bottom: 16px;
-    }
-
-    .proof-quote-stats {
-      display: flex;
-      gap: 32px;
-      flex-wrap: wrap;
-    }
-
-    .proof-quote-stat .number {
-      font-size: 24px;
-      font-weight: 700;
-      color: var(--accent-gold);
-      line-height: 1;
-      margin-bottom: 4px;
-    }
-
-    .proof-quote-stat .label {
-      font-size: 12px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    /* The ask */
-    .ask-list {
-      list-style: none;
-      margin-top: 32px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    .ask-list li {
-      display: flex;
-      gap: 16px;
-      align-items: flex-start;
-    }
-
-    .ask-num {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      border: 1px solid var(--border-gold);
-      color: var(--accent-gold);
-      font-size: 13px;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-
-    .ask-content strong {
-      display: block;
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 4px;
-    }
-
-    .ask-content p {
-      font-size: 14px;
-      color: var(--text-secondary);
-      line-height: 1.6;
-    }
-
-    /* Spots counter */
     .spots-bar {
-      background: var(--bg-card);
-      border: 1px solid var(--border-gold);
-      border-radius: 10px;
-      padding: 20px 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 16px;
-      margin-bottom: 32px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-gold);
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-bottom: 28px;
       flex-wrap: wrap;
     }
+    .spots-text { font-size: 14px; color: var(--text-secondary); }
+    .spots-text strong { color: var(--accent-gold); }
+    .spots-progress { height: 4px; background: rgba(255,255,255,0.06); border-radius: 2px; flex: 1; min-width: 80px; max-width: 140px; }
+    .spots-fill { height: 100%; background: var(--accent-gold); border-radius: 2px; width: 32%; transition: width 0.8s ease; }
 
-    .spots-text {
-      font-size: 14px;
-      color: var(--text-secondary);
+    .cta-block {
+      text-align: center;
+      padding: 56px 0 100px;
     }
-
-    .spots-text strong {
-      color: var(--accent-gold);
-    }
-
-    .spots-progress {
-      height: 4px;
-      background: rgba(255,255,255,0.06);
-      border-radius: 2px;
-      flex: 1;
-      min-width: 100px;
-      max-width: 160px;
-    }
-
-    .spots-fill {
-      height: 100%;
+    .cta-block h2 { font-size: 28px; font-weight: 700; margin-bottom: 14px; line-height: 1.3; }
+    .cta-block p { font-size: 16px; color: var(--text-secondary); margin-bottom: 32px; max-width: 480px; margin-left: auto; margin-right: auto; }
+    .btn-alpha {
+      display: inline-block;
       background: var(--accent-gold);
-      border-radius: 2px;
-      width: 32%;
-      transition: width 0.8s ease;
+      color: #0A0A0F;
+      font-weight: 700;
+      font-size: 17px;
+      padding: 18px 48px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      letter-spacing: 0.01em;
     }
-
-    /* Form overrides */
-    .alpha-form-wrap {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: 16px;
-      padding: 40px;
-    }
-
-    .alpha-form-wrap h3 {
-      font-size: 22px;
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-
-    .alpha-form-wrap .form-subtitle {
-      font-size: 14px;
-      color: var(--text-muted);
-      margin-bottom: 32px;
-    }
-
-    @media (max-width: 600px) {
-      .alpha-form-wrap {
-        padding: 24px 20px;
-      }
-
-      .proof-quote-stats {
-        gap: 20px;
-      }
-    }
+    .btn-alpha:hover { background: var(--accent-gold-hover); color: #0A0A0F; transform: translateY(-1px); }
+    .cta-note { margin-top: 16px; font-size: 12px; color: var(--text-muted); }
   </style>
 </head>
 <body>
   <div class="page-wrapper">
 
-    <!-- Top Bar -->
     <header class="topbar">
       <div class="container">
         <div class="logo">Speaker Agent <span>AI</span></div>
@@ -373,143 +180,114 @@
       </div>
     </header>
 
-    <!-- Personal Letter -->
-    <section class="alpha-letter">
+    <!-- HERO: Headline + Lead -->
+    <section class="hero">
       <div class="container">
+        <div class="hero-badge fade-in">A Personal Invitation from Tony D'Agostino</div>
+        <h1 class="fade-in">You're Being Invited Because Tony Trusts You.</h1>
+        <p class="subtitle fade-in">Before Speaker Agent AI opens to the public, Tony is personally inviting a small group of people from his network to be part of the founding circle — lifetime access, no charge, ever.</p>
 
-        <div class="letter-from fade-in">
+        <div class="fade-in" style="margin-top: 36px;">
+          <div class="spots-bar" style="max-width:460px; margin: 0 auto 28px;">
+            <div class="spots-text"><strong id="alpha-spots-remaining">34 spots remaining</strong> — hard cap at 50</div>
+            <div class="spots-progress"><div class="spots-fill" id="spots-fill-bar"></div></div>
+          </div>
+          <div style="text-align:center;">
+            <a href="/start" class="btn-alpha">I'm In — Set Up My Account</a>
+            <p class="cta-note">No credit card. Founding member status is permanent.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- TONY'S STORY -->
+    <section style="padding: 72px 0;">
+      <div class="container">
+        <div class="section-label fade-in">From Tony</div>
+        <h2 class="section-heading fade-in" style="margin-bottom: 40px;">Every Chapter Built the Next.</h2>
+
+        <div class="tony-byline fade-in">
           <div class="tony-avatar">TD</div>
           <div class="tony-meta">
             <div class="tony-name">Tony D'Agostino</div>
-            <div class="tony-title">Founder, Speaker Agent AI &nbsp;·&nbsp; Navy Veteran &nbsp;·&nbsp; Operator</div>
+            <div class="tony-title">Founder, Speaker Agent AI · Navy Veteran · Operator</div>
           </div>
         </div>
 
         <div class="letter-body fade-in">
           <p>I didn't plan this career. I survived it — one chapter at a time.</p>
-
           <p>Paper route. Gas station. Dog food plant. Kansas wheat fields. Then I raised my hand for something most people wouldn't — I became a Navy rescue swimmer. The guy who jumps out of helicopters into the open ocean when someone's life depends on it. No committee. No second opinion. Just me, the water, and the job.</p>
-
-          <p>After that: chasing Russian submarines in the Mediterranean. Briefing the Secretary of the Navy during Desert Storm. The North Pole. Top Gun. A master's in applied physics. And then geophysicist aboard USS John F. Kennedy — one of five officers trusted to supervise operations for eighty aircraft and 5,500 crew. <em>Five people. Eighty aircraft. Fifty-five hundred lives.</em> That's not a job description. That's a pressure test with no practice round.</p>
-
-          <p>Left the Navy — walked straight into Wall Street. Built one of the first algorithmic equity trading desks. Ran global quant teams. President Obama appointed me to the SIPC board — Senate confirmed — where I helped oversee the $3.5 billion fund protecting American investors through Madoff and Lehman. Led Agile transformation across Wells Fargo, influencing thousands of engineering teams. Built healthcare startups with Johns Hopkins.</p>
-
+          <p>After that: chasing Russian submarines in the Mediterranean. Briefing the Secretary of the Navy during Desert Storm. The North Pole. Top Gun. A master's in applied physics. Geophysicist aboard USS John F. Kennedy — one of five officers supervising operations for eighty aircraft and 5,500 crew. <em>Five people. Eighty aircraft. Fifty-five hundred lives.</em> That's not a job description. That's a pressure test with no practice round.</p>
+          <p>Left the Navy — walked straight into Wall Street. Built one of the first algorithmic equity trading desks at Wachovia. Global quant leadership at UBS. President Obama appointed me to the SIPC board — Senate confirmed — overseeing the $3.5 billion fund protecting American investors through Madoff and Lehman. Led Agile transformation across Wells Fargo, influencing thousands of engineering teams.</p>
           <p>Today my wife Dr. Leigh Vinocur and I run two men's health clinics in Maryland. And I'm building <strong>Speaker Agent AI</strong>.</p>
-
-          <p>Every chapter taught me something the next one needed. <em>AI just floored my accelerator.</em></p>
+          <p><em>AI just floored my accelerator.</em></p>
         </div>
 
-        <!-- Chapter timeline -->
         <div class="chapter-strip fade-in">
-          <div class="chapter-strip-label">The Chapters That Got Us Here</div>
-          <div class="chapters">
-            <div class="chapter-item">
-              <div class="chapter-dot"></div>
-              <div class="chapter-text"><strong>The Blue-Collar Foundation</strong> — Paper route, gas station, dog food plant, wheat fields. Learned to show up.</div>
-            </div>
-            <div class="chapter-item">
-              <div class="chapter-dot"></div>
-              <div class="chapter-text"><strong>Navy Rescue Swimmer → Commissioned Officer</strong> — Jumping into the open ocean. Briefing the CNO during Desert Storm.</div>
-            </div>
-            <div class="chapter-item">
-              <div class="chapter-dot"></div>
-              <div class="chapter-text"><strong>Wall Street Operator</strong> — Built Wachovia's first algorithmic trading desk. Global quant leadership at UBS and Bank of America.</div>
-            </div>
-            <div class="chapter-item">
-              <div class="chapter-dot"></div>
-              <div class="chapter-text"><strong>Presidential Appointee</strong> — SIPC Board, Senate confirmed. Helped oversee $3.5B protecting American investors through Madoff & Lehman.</div>
-            </div>
-            <div class="chapter-item">
-              <div class="chapter-dot"></div>
-              <div class="chapter-text"><strong>Healthcare & Enterprise</strong> — Johns Hopkins startups. Agile transformation across thousands of teams at Wells Fargo.</div>
-            </div>
-            <div class="chapter-item">
-              <div class="chapter-dot active"></div>
-              <div class="chapter-text"><strong>Now: The Next Chapter</strong> — Two men's health clinics. And an AI system that changes how experts get on stages.</div>
-            </div>
-          </div>
+          <div class="chapter-strip-label">The Chapters That Got Here</div>
+          <div class="chapter-item"><div class="chapter-dot"></div><div class="chapter-text"><strong>The Blue-Collar Foundation</strong> — Paper route, gas station, dog food plant, wheat fields.</div></div>
+          <div class="chapter-item"><div class="chapter-dot"></div><div class="chapter-text"><strong>Navy: Rescue Swimmer → Commissioned Officer</strong> — Desert Storm. The North Pole. Top Gun. Master's in Applied Physics.</div></div>
+          <div class="chapter-item"><div class="chapter-dot"></div><div class="chapter-text"><strong>Wall Street Operator</strong> — Algorithmic trading at Wachovia. Global quant at UBS. Regulatory programs at Bank of America.</div></div>
+          <div class="chapter-item"><div class="chapter-dot"></div><div class="chapter-text"><strong>Presidential Appointee</strong> — SIPC Board, Senate confirmed. $3.5B fund. Madoff. Lehman.</div></div>
+          <div class="chapter-item"><div class="chapter-dot"></div><div class="chapter-text"><strong>Healthcare & Enterprise</strong> — Johns Hopkins startups. Agile transformation across thousands of teams at Wells Fargo.</div></div>
+          <div class="chapter-item"><div class="chapter-dot active"></div><div class="chapter-text"><strong>Now: The Next Chapter</strong> — Two men's health clinics. And an AI system changing how experts get on stages.</div></div>
         </div>
 
         <div class="letter-body fade-in">
           <p>Here's what started all of this.</p>
-
-          <p>My wife Leigh is a board-certified emergency physician, a national medical expert, a Fast Company contributor. She has credentials that most conference organizers would kill to have on their stage. But she was spending 40 hours a month doing what every expert does — cold emails that go nowhere, spreadsheets full of dead ends, researching events that weren't the right fit anyway.</p>
-
+          <p>My wife Leigh is a board-certified emergency physician, a national medical expert, a Fast Company contributor. Credentials most conference organizers would kill to have on their stage. But she was spending 40 hours a month doing what every expert does — cold emails that go nowhere, spreadsheets full of dead ends, researching events that weren't the right fit anyway.</p>
           <p>So I built something to fix it. And it worked.</p>
         </div>
 
-        <!-- Proof -->
         <div class="proof-quote fade-in">
           <p class="proof-quote-text">"In the first run — one physician, no agency, no bureau — we identified over $151,000 in targeted speaking opportunities. Eleven high-value events. Ninety percent less research time. Zero spreadsheets."</p>
-          <div class="proof-quote-stats">
-            <div class="proof-quote-stat">
-              <div class="number">$151K</div>
-              <div class="label">Opportunity Pipeline</div>
-            </div>
-            <div class="proof-quote-stat">
-              <div class="number">11</div>
-              <div class="label">High-Value Targets</div>
-            </div>
-            <div class="proof-quote-stat">
-              <div class="number">90%</div>
-              <div class="label">Less Research Time</div>
-            </div>
+          <div class="proof-stats">
+            <div class="proof-stat"><div class="number">$151K</div><div class="label">Opportunity Pipeline</div></div>
+            <div class="proof-stat"><div class="number">11</div><div class="label">High-Value Targets</div></div>
+            <div class="proof-stat"><div class="number">90%</div><div class="label">Less Research Time</div></div>
           </div>
         </div>
 
         <div class="letter-body fade-in">
-          <p>Speaker Agent AI is an AI-powered talent office that reads your actual work — your books, your articles, your talks — understands your specific expertise, and matches you to opportunities that fit your credentials, your voice, and your fees. Then it handles the outreach. In your voice. Not a template. Not a cold email blast.</p>
-
-          <p>No bureau taking 30%. No marketplace burying your profile next to 10,000 others. No middleman between you and the stage you've earned.</p>
-
-          <p>We're not ready to open the doors yet. But I want the first people through them to be people I trust — and people who trust me. So before we launch to the public, I'm doing something I've never done before.</p>
-
-          <p><strong>I'm personally inviting a small group of people who know my story to come build this with me.</strong></p>
-
-          <p>— Tony</p>
+          <p>Speaker Agent AI reads your actual work — your books, your articles, your talks — understands your specific expertise, and matches you to opportunities that fit your credentials, your voice, and your fees. Then it handles the outreach. In your voice. Not a template.</p>
+          <p>No bureau taking 30%. No marketplace burying you next to 10,000 others. No middleman.</p>
+          <p>Before we open the doors publicly, I want the first people through them to be people I know and trust. So I'm personally inviting a small founding circle — and I want you in it.</p>
         </div>
 
-        <div class="letter-signature fade-in">
+        <div class="signature-block fade-in">
           <div class="signature-name">Tony D'Agostino</div>
-          <div class="signature-title">
-            Founder, Speaker Agent AI<br>
-            Navy Rescue Swimmer · Presidential Appointee · Operator<br>
-            Annapolis, MD
-          </div>
+          <div class="signature-title">Founder, Speaker Agent AI<br>Navy Rescue Swimmer · Presidential Appointee · Operator · Annapolis, MD</div>
         </div>
-
       </div>
     </section>
 
     <div class="section-divider"></div>
 
-    <!-- What You're Joining -->
-    <section class="tribe-section">
+    <!-- WHAT YOU GET -->
+    <section style="padding: 64px 0;">
       <div class="container">
-        <div class="section-label fade-in">The Founding Circle</div>
-        <h2 class="section-heading fade-in">What You're Actually Joining</h2>
-        <p class="section-subtext fade-in">This isn't a beta test. It's a founding tribe — the people who shape what this becomes.</p>
+        <div class="section-label fade-in">Founding Circle</div>
+        <h2 class="section-heading fade-in">What You Get as a Founding Member</h2>
+        <p class="section-subtext fade-in">This offer closes the moment we open to the public. Founding status is permanent.</p>
 
-        <div class="tribe-cards stagger">
-          <div class="tribe-card fade-in">
-            <div class="tribe-card-icon">∞</div>
+        <div class="benefits-grid stagger">
+          <div class="benefit-card fade-in">
             <h4>Lifetime Free Access</h4>
-            <p>Founding members never pay. When we launch Pro and Elite tiers, you stay in — permanently. This offer closes the moment we go public.</p>
+            <p>Founding members never pay. Pro and Elite tiers launch publicly — you stay in free, forever.</p>
           </div>
-          <div class="tribe-card fade-in">
-            <div class="tribe-card-icon">◈</div>
-            <h4>Founding Member Status</h4>
-            <p>Your profile carries a permanent "Founding Member" badge — visible to every event organizer who receives your AI-generated outreach.</p>
+          <div class="benefit-card fade-in">
+            <h4>Founding Member Badge</h4>
+            <p>A permanent badge on your profile, visible to every event organizer who receives your outreach.</p>
           </div>
-          <div class="tribe-card fade-in">
-            <div class="tribe-card-icon">◎</div>
-            <h4>You Shape the Roadmap</h4>
-            <p>Direct line to the team. Your feedback doesn't go into a suggestion box — it goes into the sprint. We're building for you, not for the market.</p>
+          <div class="benefit-card fade-in">
+            <h4>You Shape the Product</h4>
+            <p>Direct line to the team. Your feedback goes into the sprint, not a suggestion box.</p>
           </div>
-          <div class="tribe-card fade-in">
-            <div class="tribe-card-icon">◇</div>
+          <div class="benefit-card fade-in">
             <h4>First Access to Everything</h4>
-            <p>Cold email engine. Influencer tracking. Fee intelligence. You see every new feature before anyone outside the founding circle does.</p>
+            <p>Cold email engine, fee intelligence, influencer tracking — you see it first, before anyone outside this circle.</p>
           </div>
         </div>
       </div>
@@ -517,118 +295,20 @@
 
     <div class="section-divider"></div>
 
-    <!-- What We Ask -->
-    <section style="padding: 60px 0;">
+    <!-- FINAL CTA -->
+    <section class="cta-block">
       <div class="container">
-        <div class="section-label fade-in">The Fair Exchange</div>
-        <h2 class="section-heading fade-in">What We Ask of You</h2>
-        <p class="section-subtext fade-in">Lifetime access in exchange for genuine participation. That's the deal.</p>
-
-        <ul class="ask-list fade-in">
-          <li>
-            <div class="ask-num">1</div>
-            <div class="ask-content">
-              <strong>Use it for 30 days — for real.</strong>
-              <p>Let the system learn your expertise, run the matching, and draft your outreach. You can't evaluate something you haven't actually used. Give it a real shot.</p>
-            </div>
-          </li>
-          <li>
-            <div class="ask-num">2</div>
-            <div class="ask-content">
-              <strong>Give us the truth, not politeness.</strong>
-              <p>What worked. What frustrated you. What's missing. We need honest feedback — not good reviews. That's how we build something that actually serves speakers.</p>
-            </div>
-          </li>
-          <li>
-            <div class="ask-num">3</div>
-            <div class="ask-content">
-              <strong>Bring 3 people from your world.</strong>
-              <p>After you accept, you'll get a personal referral link. When people you refer join, they come in through your name — and you both get credit. We're growing through trust, not ads.</p>
-            </div>
-          </li>
-          <li>
-            <div class="ask-num">4</div>
-            <div class="ask-content">
-              <strong>Share your story when the time is right.</strong>
-              <p>Not now. Not until you've seen results. But when you do — a few sentences from a real expert means more than any ad we could ever run.</p>
-            </div>
-          </li>
-        </ul>
+        <div class="spots-bar fade-in" style="max-width: 460px; margin: 0 auto 48px;">
+          <div class="spots-text"><strong id="alpha-spots-remaining-2">34 spots remaining</strong> — hard cap at 50</div>
+          <div class="spots-progress"><div class="spots-fill" id="spots-fill-bar-2"></div></div>
+        </div>
+        <h2 class="fade-in">Ready to Join the Founding Circle?</h2>
+        <p class="fade-in">Takes 2 minutes. Set up your account and we'll get your AI agent running.</p>
+        <a href="/start" class="btn-alpha fade-in">I'm In — Set Up My Account</a>
+        <p class="cta-note fade-in">No credit card. No obligation. Founding member status is permanent once you're in.</p>
       </div>
     </section>
 
-    <div class="section-divider"></div>
-
-    <!-- Accept Form -->
-    <section style="padding: 60px 0 100px;">
-      <div class="container">
-
-        <div class="spots-bar fade-in">
-          <div class="spots-text">
-            <strong id="alpha-spots-remaining">34 spots remaining</strong> in the founding circle — hard cap at 50
-          </div>
-          <div class="spots-progress">
-            <div class="spots-fill" id="spots-fill-bar"></div>
-          </div>
-        </div>
-
-        <div class="alpha-form-wrap fade-in" id="alpha-application">
-          <h3>Accept Tony's Invitation</h3>
-          <p class="form-subtitle">Your referral link is generated the moment you accept. This page is private — please don't share it widely.</p>
-
-          <form id="alpha-form">
-            <div class="form-group">
-              <label>Full Name <span class="required">*</span></label>
-              <input type="text" name="name" placeholder="Your full name" required>
-            </div>
-
-            <div class="form-group">
-              <label>Email <span class="required">*</span></label>
-              <input type="email" name="email" placeholder="your@email.com" required autocomplete="email">
-            </div>
-
-            <div class="form-group">
-              <label>LinkedIn Profile</label>
-              <input type="url" name="linkedin" placeholder="https://linkedin.com/in/yourprofile">
-            </div>
-
-            <div class="form-group">
-              <label>Primary Area of Expertise <span class="required">*</span></label>
-              <input type="text" name="topic" placeholder="e.g., Healthcare leadership, AI strategy, Crisis management" required>
-            </div>
-
-            <div class="form-group">
-              <label>How Do You Know Tony? <span class="required">*</span></label>
-              <select name="relationship" required>
-                <option value="" disabled selected>Select one</option>
-                <option value="navy">Navy / Military</option>
-                <option value="wall-street">Wall Street / Finance</option>
-                <option value="healthcare">Healthcare / Medicine</option>
-                <option value="wells-fargo">Wells Fargo / Enterprise</option>
-                <option value="sipc">SIPC / Government / Policy</option>
-                <option value="colleague">Colleague / Business</option>
-                <option value="fellow-speaker">Fellow Speaker / Author</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label>Why do you want in? <span class="form-optional">(optional — but Tony reads these)</span></label>
-              <textarea name="reason" placeholder="What are you currently doing to find speaking opportunities? What would change if this actually worked?" rows="4" style="width:100%; background:var(--bg-input); border:1px solid var(--border-subtle); border-radius:8px; padding:14px 16px; color:var(--text-primary); font-family:var(--font-main); font-size:15px; resize:vertical; outline:none; transition:border-color 0.2s;" onfocus="this.style.borderColor='var(--accent-gold)'" onblur="this.style.borderColor='var(--border-subtle)'"></textarea>
-            </div>
-
-            <div class="form-message" id="alpha-form-message"></div>
-
-            <button type="submit" class="btn-primary btn-primary--large" style="width:100%; margin-top: 8px;">Accept — I'm In</button>
-
-            <p style="text-align:center; font-size:12px; color:var(--text-muted); margin-top: 16px;">No credit card. No obligation. Founding member status is permanent.</p>
-          </form>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Footer -->
     <footer class="site-footer">
       <div class="container">
         <div class="footer-left">Built by operators, not a lab.</div>
@@ -643,19 +323,18 @@
 
   <script src="/js/app.js"></script>
   <script>
-    // Load live spot count
     fetch('/api/stats')
       .then(r => r.json())
       .then(data => {
         const alphaCount = data.alpha_count || 0;
         const remaining = Math.max(0, 50 - alphaCount);
         const pct = Math.min(100, (alphaCount / 50) * 100);
-
-        const el = document.getElementById('alpha-spots-remaining');
-        if (el) el.innerHTML = `<strong>${remaining} spot${remaining !== 1 ? 's' : ''} remaining</strong>`;
-
-        const bar = document.getElementById('spots-fill-bar');
-        if (bar) bar.style.width = pct + '%';
+        document.querySelectorAll('#alpha-spots-remaining, #alpha-spots-remaining-2').forEach(el => {
+          el.textContent = remaining + ' spot' + (remaining !== 1 ? 's' : '') + ' remaining';
+        });
+        document.querySelectorAll('#spots-fill-bar, #spots-fill-bar-2').forEach(el => {
+          el.style.width = pct + '%';
+        });
       })
       .catch(() => {});
   </script>
